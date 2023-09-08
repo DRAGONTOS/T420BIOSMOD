@@ -1,0 +1,861 @@
+
+PAGE Revision History 
+
+PAGE Message Options 
+STRING $Signon Intel(R) Sandybridge/Ivybridge PCI Accelerated SVGA BIOS\r\nBuild Number: 2170 PC 14.34  08/07/2013  08:01:27\r\nDECOMPILATION OR DISASSEMBLY PROHIBITED\r\n
+$Msg_Enable 00
+$Cls_After_Signon 00
+
+PAGE General Features
+$CRT_DDC_GMBUS_Pin 02
+$LFP_DDC_GMBUS_Pin 03
+$bmp_Display_Detect 00
+$CUIHotK_Static_Display 00
+$Enable_Panel_Fitting 03
+$Single_DVI_I 00
+$Int_CRT_Support 01
+$DP_SSC_Enb 01
+$DP_SSC_Freq 00
+$DP_SSC_Dongle_Enb 00
+$FDI_RX_POL 00
+$Embedded_Platform 00
+
+PAGE General Video BIOS Features
+$bmp_VBIOS_Post_Mode 03
+$bmp_Resize_PCI_BIOS 00
+$DPMS_AIM_Bit 01
+$Enable_LFPOn_Override 00
+$Allow_Boot_DVI 00
+$Allow_Aspect_Ratio 00
+$Override_VGA_720p 00
+$Hotplug_Support_Enb 00
+$Enable_Panel_Timing 01
+
+PAGE General Driver Features
+
+PAGE General Features
+$VBT_Customization_Version 00
+$Driver_Boot_Device 00
+$Allow_FDOS_Disp_Switch 00
+$Hot_Plug_DVO 01
+$Hot_Plug_CRT 01
+$Hot_Plug_TV 00
+$Enable_LFP_Primary 00
+$Use_110h_for_LFP 00
+$DVD_Sprite_Clone 01
+$GTF_Mode_Pruning 00
+$Sprite_Display_Assign 00
+$Enable_Int_Src_Term 00
+
+PAGE Display Features
+$CUI_Maintain_Aspect 01
+$Preserve_Aspect_Ratio 00
+
+PAGE Legacy Monitor Mode Limit
+$Legacy_Monitor_Max_X 00 00
+$Legacy_Monitor_Max_Y 00 00
+$Legacy_Monitor_Max_RR 55
+
+PAGE Power Conservation
+$SDVO_Device_Power_Down 01
+$PC_Fields_Enable 01
+$PM_RMPM_Enable 01
+$PM_S2DDT_Enable 01
+$PM_DPST_Enable 01
+$BIA_Aggress_Level 04
+$PM_BLC_Enable 01
+$PM_ADB_Enable 01
+$PM_DRRS_Enable 01
+$PM_RS_Enable 01
+$PM_GPMT_Enable 01
+$PM_Turbo_Enable 01
+
+PAGE ADB Response Data
+TABLE $ALS_Response_Data 46 00 00 00 49 00 0A 00 55 00 50 00 64 00 2C 01 96 00 E8 03
+
+PAGE Rotation Configuration
+$Rot_Enable 01
+
+PAGE Graphics Mode to Boot on Windows
+$Driver_Boot_Mode_X 00 04
+$Driver_Boot_Mode_Y 00 03
+$Driver_Boot_Mode_BPP 08
+$Driver_Boot_Mode_RR 3C
+
+PAGE Driver Persistence
+$Driver_Persist_PM 01
+$Driver_Persist_Lid_Switch 01
+$Driver_Persist_Hotkey 01
+$Driver_Persist_Docking 01
+$PersistHotkeyRestoreCloneMDS 00
+$PersistHotkeyRestoreRefreshrate 01
+$PersistHotkeyRestorePipe 01
+$PersistHotkeyRestoreMode 01
+$PersistEDIDRestoreMode 01
+$PersistHotPlugRestoreMode 01
+$PersistMaxConfig C8
+
+PAGE TV Features
+$Under_Over_Scan_Via_YPrPb 00
+$Under_Over_Scan_Via_HDMI 00
+$Add_Overscan_Mode 01
+
+PAGE Boot Display Algorithm 
+TABLE $Dev_Boot_Table 44 04 40 06 04 02 09 01 00 0A 02 08 0C 04 08 03 01 02 05 01 04 0D 01 04 0B 01 02 07 01 04 15 01 04 45 01 04 0E 04 08 46 04 40 28 20 08 48 40 08
+
+PAGE Display Device Toggle Lists
+
+PAGE Display Toggle List 1
+TABLE $Toggle_List1 08 00 00 01 00 00 01 08 00 04 00 00 04 08 00 40 00 00 40 08 00 20 00 00 20 08 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE Display Toggle List 2
+TABLE $Toggle_List2 08 00 00 01 00 00 01 08 00 04 00 00 04 08 00 40 00 00 40 08 00 00 00 00
+
+PAGE Display Toggle List 3
+TABLE $Toggle_List3 01 00 00 01 08 00 00 08 00 02 00 00 01 04 00 04 00 00 04 08 00 00 00 00
+
+PAGE Display Toggle List 4
+TABLE $Toggle_List4 01 00 00 01 08 00 00 08 00 02 00 00 01 04 00 04 00 00 04 08 00 00 00 00
+
+PAGE System BIOS Hooks 
+$H14_Get_Misc_Status 00
+$H31_POST_End_Hook 00
+$H33_After_Mode_Set 00
+$H34_Set_LFP_Fitting 00
+$H35_Bootup_Display 01
+$H36_Boot_TV_Format 00
+$H38_Before_Mode_Set 00
+$H40_Set_Panel_Type 01
+$H45_VESA_DDC_Hook 00
+$H46_VESA_PM_Hook 00
+$H47_Notify_Display_Sw 00
+$H48_After_VESA_PM 00
+$H49_Get_BL_Inv_Pol 00
+$H51_LFP_Panel_Type 00
+$H52_LFP_Panel_Color_Depth 00
+$H53_Get_EDID_SBIOS 00
+$H54_Get_Int_DP_HDMI_Cfg 00
+
+PAGE Modes Removal Table
+TABLE $Mode_Rem_Table 80 04 60 03 FF FF FF BF FF FF 00 05 58 02 FF FF FF BF FF FF 00 05 C0 03 FF FF FF BF FF FF 00 07 40 05 FF FF FF BF FF FF 40 07 70 05 FF FF FF BF FF FF 80 07 A0 05 FF FF FF BF FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF 00 00 00 00 00 00 00 00 FF FF
+
+PAGE Display Configuration Removal Table
+TABLE $Dev_Removed_Table 09 00 05 00 03 00 00 09 00 05 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Customizable Modes 2.0
+
+PAGE OEM Mode #1
+$OEM_Mode_Flags1 03
+$OEM_Display_Flags1 FF
+$OEM_Mode_X1 00 03
+$OEM_Mode_Y1 E0 01
+$OEM_Mode_Color1 07
+$OEM_Mode_RRate1 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD1 40 0B 00 C0 30 E0 14 10 18 48 36 00 58 DE 00 00 00 00
+
+PAGE OEM Mode #2
+$OEM_Mode_Flags2 03
+$OEM_Display_Flags2 FF
+$OEM_Mode_X2 C0 03
+$OEM_Mode_Y2 58 02
+$OEM_Mode_Color2 07
+$OEM_Mode_RRate2 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD2 C8 11 C0 00 31 58 18 20 20 60 36 00 58 DE 10 00 00 00
+
+PAGE OEM Mode #3
+$OEM_Mode_Flags3 00
+$OEM_Display_Flags3 00
+$OEM_Mode_X3 00 00
+$OEM_Mode_Y3 00 00
+$OEM_Mode_Color3 07
+$OEM_Mode_RRate3 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #4
+$OEM_Mode_Flags4 00
+$OEM_Display_Flags4 00
+$OEM_Mode_X4 00 00
+$OEM_Mode_Y4 00 00
+$OEM_Mode_Color4 07
+$OEM_Mode_RRate4 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD4 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #5
+$OEM_Mode_Flags5 00
+$OEM_Display_Flags5 00
+$OEM_Mode_X5 00 00
+$OEM_Mode_Y5 00 00
+$OEM_Mode_Color5 07
+$OEM_Mode_RRate5 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD5 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE OEM Mode #6
+$OEM_Mode_Flags6 00
+$OEM_Display_Flags6 00
+$OEM_Mode_X6 00 00
+$OEM_Mode_Y6 00 00
+$OEM_Mode_Color6 07
+$OEM_Mode_RRate6 3C
+
+PAGE DTD
+TABLE $OEM_Mode_DTD6 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE Integrated HDMI/DisplayPort Configuration with External Connectors
+
+PAGE Device 1
+$Int_EFP1_Type D6 60
+$Int_EFP1_Port 07
+$Int_EFP1_DDC_Pin 05
+$Int_EFP1_AUX_Channel 10
+$Int_EFP1_HDMI_LS_Type 01
+$Int_EFP1_Port_Dockable 00
+
+PAGE DisplayPort Redriver Configuration
+$Int_EFP1_OnBoard_Redriver_Present 00
+$Int_EFP1_OnBoard_Pre_emphasis 00
+$Int_EFP1_OnBoard_Voltage_swing 02
+$Int_EFP1_Dock_Redriver_Present 00
+$Int_EFP1_Dock_Pre_emphasis 00
+$Int_EFP1_Dock_Voltage_swing 02
+
+PAGE Device 2
+$Int_EFP2_Type D6 60
+$Int_EFP2_Port 08
+$Int_EFP2_DDC_Pin 04
+$Int_EFP2_AUX_Channel 20
+$Int_EFP2_HDMI_LS_Type 01
+$Int_EFP2_Port_Dockable 00
+
+PAGE DisplayPort Redriver Configuration
+$Int_EFP2_OnBoard_Redriver_Present 00
+$Int_EFP2_OnBoard_Pre_emphasis 00
+$Int_EFP2_OnBoard_Voltage_swing 02
+$Int_EFP2_Dock_Redriver_Present 00
+$Int_EFP2_Dock_Pre_emphasis 00
+$Int_EFP2_Dock_Voltage_swing 02
+
+PAGE Device 3
+$Int_EFP3_Type D6 60
+$Int_EFP3_Port 09
+$Int_EFP3_DDC_Pin 06
+$Int_EFP3_AUX_Channel 30
+$Int_EFP3_HDMI_LS_Type 01
+$Int_EFP3_Port_Dockable 00
+
+PAGE DisplayPort Redriver Configuration
+$Int_EFP3_OnBoard_Redriver_Present 00
+$Int_EFP3_OnBoard_Pre_emphasis 00
+$Int_EFP3_OnBoard_Voltage_swing 02
+$Int_EFP3_Dock_Redriver_Present 00
+$Int_EFP3_Dock_Pre_emphasis 00
+$Int_EFP3_Dock_Voltage_swing 02
+
+PAGE Motherboard-Down SDVO Devices
+
+PAGE Device 1
+$Dev1_Type 00 00
+$Dev1_DVO 01
+$Dev1_I2C_Pin 05
+$Dev1_Slave_Add 70
+$Dev1_I2CSpeed 03
+$Dev1_DDC_Pin 1D
+
+PAGE Dot Clock Override Table
+TABLE $Clock_Override_Table 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE LFP Configuration
+$LVDS_Config 01
+
+PAGE LFP (Integrated LVDS) Features
+
+PAGE LVDS Dot Clock Override Table
+TABLE $LVDS_Clock_Override_Tbl 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE LFP Display Configuration
+$bmp_Panel_type 02
+$bmp_Panel_EDID 01
+
+PAGE Panel #1 
+STRING $Panel_Name_01 LFP_PanelName
+$Panel_Width_01 80 02
+$Panel_Height_01 E0 01
+$Int_LVDS_Panel_1_Channel_Type 00
+$INT_Panel_Color_Depth01 00
+$Enable_SSC01 00
+$SSC_Freq01 00
+$Disable_SSC_DDT01 00
+$DPS_Panel_Type_01 00
+$Blt_Control_01 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_01 B8 0B
+$PowerUpDelay_01 2C 01
+$Power_Backlight_Off_Power_Down_Delay_01 D0 07
+$PowerDownDelay_01 2C 01
+$PowerCycleDelay_01 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_01 D6 09 80 90 20 E0 1D 10 08 60 22 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_01 36 7F 01 00 01 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_1 02
+$BLC_Inv_Polarity_1 01
+$BLC_Min_Brightness_1 00
+$PWM_Frequency_1 DC 00
+$BLC_GPIO_Pins_1 01
+$BLC_GMBus_Speed_1 01
+$BLC_I2C_Addr_1 58
+$BLC_Brightness_Cmd_1 AA
+
+PAGE Panel #2 
+STRING $Panel_Name_02 LFP_PanelName
+$Panel_Width_02 20 03
+$Panel_Height_02 58 02
+$Int_LVDS_Panel_2_Channel_Type 00
+$INT_Panel_Color_Depth02 00
+$Enable_SSC02 00
+$SSC_Freq02 00
+$Disable_SSC_DDT02 00
+$DPS_Panel_Type_02 00
+$Blt_Control_02 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_02 B8 0B
+$PowerUpDelay_02 2C 01
+$Power_Backlight_Off_Power_Down_Delay_02 D0 07
+$PowerDownDelay_02 2C 01
+$PowerCycleDelay_02 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_02 A0 0F 20 00 31 58 1C 20 28 80 14 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_02 36 7F 02 00 02 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_2 02
+$BLC_Inv_Polarity_2 01
+$BLC_Min_Brightness_2 00
+$PWM_Frequency_2 DC 00
+$BLC_GPIO_Pins_2 01
+$BLC_GMBus_Speed_2 01
+$BLC_I2C_Addr_2 58
+$BLC_Brightness_Cmd_2 AA
+
+PAGE Panel #3 
+STRING $Panel_Name_03 LFP_PanelName
+$Panel_Width_03 00 04
+$Panel_Height_03 00 03
+$Int_LVDS_Panel_3_Channel_Type 00
+$INT_Panel_Color_Depth03 00
+$Enable_SSC03 01
+$SSC_Freq03 00
+$Disable_SSC_DDT03 00
+$DPS_Panel_Type_03 00
+$Blt_Control_03 02
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_03 C4 09
+$PowerUpDelay_03 FA 00
+$Power_Backlight_Off_Power_Down_Delay_03 C4 09
+$PowerDownDelay_03 FA 00
+$PowerCycleDelay_03 03
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_03 B0 27 A0 80 51 84 1A 30 30 20 36 00 30 BE 10 00 00 19
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_03 36 7F 03 00 03 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_3 02
+$BLC_Inv_Polarity_3 00
+$BLC_Min_Brightness_3 00
+$PWM_Frequency_3 DC 00
+$BLC_GPIO_Pins_3 01
+$BLC_GMBus_Speed_3 01
+$BLC_I2C_Addr_3 58
+$BLC_Brightness_Cmd_3 AA
+
+PAGE Panel #4 
+STRING $Panel_Name_04 LFP_PanelName
+$Panel_Width_04 00 05
+$Panel_Height_04 00 04
+$Int_LVDS_Panel_4_Channel_Type 00
+$INT_Panel_Color_Depth04 00
+$Enable_SSC04 00
+$SSC_Freq04 00
+$Disable_SSC_DDT04 00
+$DPS_Panel_Type_04 00
+$Blt_Control_04 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_04 B8 0B
+$PowerUpDelay_04 2C 01
+$Power_Backlight_Off_Power_Down_Delay_04 D0 07
+$PowerDownDelay_04 2C 01
+$PowerCycleDelay_04 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_04 30 2A 00 98 51 00 30 40 30 70 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_04 36 7F 05 00 04 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_4 02
+$BLC_Inv_Polarity_4 01
+$BLC_Min_Brightness_4 00
+$PWM_Frequency_4 DC 00
+$BLC_GPIO_Pins_4 01
+$BLC_GMBus_Speed_4 01
+$BLC_I2C_Addr_4 58
+$BLC_Brightness_Cmd_4 AA
+
+PAGE Panel #5 
+STRING $Panel_Name_05 LFP_PanelName
+$Panel_Width_05 78 05
+$Panel_Height_05 1A 04
+$Int_LVDS_Panel_5_Channel_Type 00
+$INT_Panel_Color_Depth05 00
+$Enable_SSC05 00
+$SSC_Freq05 00
+$Disable_SSC_DDT05 00
+$DPS_Panel_Type_05 00
+$Blt_Control_05 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_05 B8 0B
+$PowerUpDelay_05 2C 01
+$Power_Backlight_Off_Power_Down_Delay_05 D0 07
+$PowerDownDelay_05 2C 01
+$PowerCycleDelay_05 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_05 30 2A 78 20 51 1A 10 40 10 70 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_05 36 7F 01 90 05 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_5 02
+$BLC_Inv_Polarity_5 01
+$BLC_Min_Brightness_5 00
+$PWM_Frequency_5 DC 00
+$BLC_GPIO_Pins_5 01
+$BLC_GMBus_Speed_5 01
+$BLC_I2C_Addr_5 58
+$BLC_Brightness_Cmd_5 AA
+
+PAGE Panel #6 
+STRING $Panel_Name_06 LFP_PanelName
+$Panel_Width_06 78 05
+$Panel_Height_06 1A 04
+$Int_LVDS_Panel_6_Channel_Type 00
+$INT_Panel_Color_Depth06 00
+$Enable_SSC06 00
+$SSC_Freq06 00
+$Disable_SSC_DDT06 00
+$DPS_Panel_Type_06 00
+$Blt_Control_06 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_06 B8 0B
+$PowerUpDelay_06 2C 01
+$Power_Backlight_Off_Power_Down_Delay_06 D0 07
+$PowerDownDelay_06 2C 01
+$PowerCycleDelay_06 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_06 A8 2F 78 E0 51 1A 26 40 58 98 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_06 36 7F 01 90 06 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_6 02
+$BLC_Inv_Polarity_6 01
+$BLC_Min_Brightness_6 00
+$PWM_Frequency_6 DC 00
+$BLC_GPIO_Pins_6 01
+$BLC_GMBus_Speed_6 01
+$BLC_I2C_Addr_6 58
+$BLC_Brightness_Cmd_6 AA
+
+PAGE Panel #7 
+STRING $Panel_Name_07 LFP_PanelName
+$Panel_Width_07 40 06
+$Panel_Height_07 B0 04
+$Int_LVDS_Panel_7_Channel_Type 00
+$INT_Panel_Color_Depth07 00
+$Enable_SSC07 00
+$SSC_Freq07 00
+$Disable_SSC_DDT07 00
+$DPS_Panel_Type_07 00
+$Blt_Control_07 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_07 B8 0B
+$PowerUpDelay_07 2C 01
+$Power_Backlight_Off_Power_Down_Delay_07 D0 07
+$PowerDownDelay_07 2C 01
+$PowerCycleDelay_07 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_07 48 3F 40 30 62 B0 32 40 40 C0 13 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_07 36 7F 06 00 07 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_7 02
+$BLC_Inv_Polarity_7 01
+$BLC_Min_Brightness_7 00
+$PWM_Frequency_7 DC 00
+$BLC_GPIO_Pins_7 01
+$BLC_GMBus_Speed_7 01
+$BLC_I2C_Addr_7 58
+$BLC_Brightness_Cmd_5 AA
+
+PAGE Panel #8 
+STRING $Panel_Name_08 LFP_PanelName
+$Panel_Width_08 56 05
+$Panel_Height_08 00 03
+$Int_LVDS_Panel_8_Channel_Type 00
+$INT_Panel_Color_Depth08 00
+$Enable_SSC08 00
+$SSC_Freq08 00
+$Disable_SSC_DDT08 00
+$DPS_Panel_Type_08 00
+$Blt_Control_08 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_08 B8 0B
+$PowerUpDelay_08 2C 01
+$Power_Backlight_Off_Power_Down_Delay_08 D0 07
+$PowerDownDelay_08 2C 01
+$PowerCycleDelay_08 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_08 66 21 56 AA 51 00 1E 30 46 90 14 00 00 00 00 00 00 18
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_08 36 7F 03 90 08 00 00 00 00 01
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_8 02
+$BLC_Inv_Polarity_8 01
+$BLC_Min_Brightness_8 00
+$PWM_Frequency_8 DC 00
+$BLC_GPIO_Pins_8 01
+$BLC_GMBus_Speed_8 01
+$BLC_I2C_Addr_8 58
+$BLC_Brightness_Cmd_8 AA
+
+PAGE Panel #9 
+STRING $Panel_Name_09 LFP_PanelName
+$Panel_Width_09 90 06
+$Panel_Height_09 1A 04
+$Int_LVDS_Panel_9_Channel_Type 00
+$INT_Panel_Color_Depth09 00
+$Enable_SSC09 00
+$SSC_Freq09 00
+$Disable_SSC_DDT09 00
+$DPS_Panel_Type_09 00
+$Blt_Control_09 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_09 B8 0B
+$PowerUpDelay_09 2C 01
+$Power_Backlight_Off_Power_Down_Delay_09 D0 07
+$PowerDownDelay_09 2C 01
+$PowerCycleDelay_09 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_09 7C 2E 90 A0 60 1A 1E 40 30 20 36 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_09 36 7F 04 90 09 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_9 02
+$BLC_Inv_Polarity_9 01
+$BLC_Min_Brightness_9 00
+$PWM_Frequency_9 DC 00
+$BLC_GPIO_Pins_9 01
+$BLC_GMBus_Speed_9 01
+$BLC_I2C_Addr_9 58
+$BLC_Brightness_Cmd_9 AA
+
+PAGE Panel #10 
+STRING $Panel_Name_10 LFP_PanelName
+$Panel_Width_10 80 07
+$Panel_Height_10 B0 04
+$Int_LVDS_Panel_10_Channel_Type 00
+$INT_Panel_Color_Depth10 00
+$Enable_SSC10 00
+$SSC_Freq10 00
+$Disable_SSC_DDT10 00
+$DPS_Panel_Type_10 00
+$Blt_Control_10 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_10 B8 0B
+$PowerUpDelay_10 2C 01
+$Power_Backlight_Off_Power_Down_Delay_10 D0 07
+$PowerDownDelay_10 2C 01
+$PowerCycleDelay_10 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_10 28 3C 80 A0 70 B0 23 40 30 20 2A 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_10 36 7F 05 90 0A 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_10 02
+$BLC_Inv_Polarity_10 01
+$BLC_Min_Brightness_10 00
+$PWM_Frequency_10 DC 00
+$BLC_GPIO_Pins_10 01
+$BLC_GMBus_Speed_10 01
+$BLC_I2C_Addr_10 58
+$BLC_Brightness_Cmd_10 AA
+
+PAGE Panel #11 
+STRING $Panel_Name_11 LFP_PanelName
+$Panel_Width_11 A0 05
+$Panel_Height_11 84 03
+$Int_LVDS_Panel_11_Channel_Type 00
+$INT_Panel_Color_Depth11 00
+$Enable_SSC11 00
+$SSC_Freq11 00
+$Disable_SSC_DDT11 00
+$DPS_Panel_Type_11 00
+$Blt_Control_11 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_11 B8 0B
+$PowerUpDelay_11 2C 01
+$Power_Backlight_Off_Power_Down_Delay_11 D0 07
+$PowerDownDelay_11 2C 01
+$PowerCycleDelay_11 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_11 9A 29 A0 D0 51 84 22 30 50 99 17 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_11 36 7F 03 00 0B 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_11 02
+$BLC_Inv_Polarity_11 01
+$BLC_Min_Brightness_11 00
+$PWM_Frequency_11 DC 00
+$BLC_GPIO_Pins_11 01
+$BLC_GMBus_Speed_11 01
+$BLC_I2C_Addr_11 58
+$BLC_Brightness_Cmd_11 AA
+
+PAGE Panel #12 
+STRING $Panel_Name_12 LFP_PanelName
+$Panel_Width_12 40 06
+$Panel_Height_12 84 03
+$Int_LVDS_Panel_12_Channel_Type 00
+$INT_Panel_Color_Depth12 00
+$Enable_SSC12 00
+$SSC_Freq12 00
+$Disable_SSC_DDT12 00
+$DPS_Panel_Type_12 00
+$Blt_Control_12 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_12 B8 0B
+$PowerUpDelay_12 2C 01
+$Power_Backlight_Off_Power_Down_Delay_12 D0 07
+$PowerDownDelay_12 2C 01
+$PowerCycleDelay_12 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_12 30 2A 40 C8 60 84 64 30 18 51 04 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_12 36 7F 03 00 0C 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_12 02
+$BLC_Inv_Polarity_12 01
+$BLC_Min_Brightness_12 00
+$PWM_Frequency_12 DC 00
+$BLC_GPIO_Pins_12 01
+$BLC_GMBus_Speed_12 01
+$BLC_I2C_Addr_12 58
+$BLC_Brightness_Cmd_12 AA
+
+PAGE Panel #13 
+STRING $Panel_Name_13 LFP_PanelName
+$Panel_Width_13 00 04
+$Panel_Height_13 00 03
+$Int_LVDS_Panel_13_Channel_Type 00
+$INT_Panel_Color_Depth13 00
+$Enable_SSC13 00
+$SSC_Freq13 00
+$Disable_SSC_DDT13 00
+$DPS_Panel_Type_13 00
+$Blt_Control_13 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_13 B8 0B
+$PowerUpDelay_13 2C 01
+$Power_Backlight_Off_Power_Down_Delay_13 D0 07
+$PowerDownDelay_13 2C 01
+$PowerCycleDelay_13 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_13 64 19 00 40 41 00 26 30 18 88 36 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_13 36 7F 03 00 0D 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_13 02
+$BLC_Inv_Polarity_13 01
+$BLC_Min_Brightness_13 00
+$PWM_Frequency_13 DC 00
+$BLC_GPIO_Pins_13 01
+$BLC_GMBus_Speed_13 01
+$BLC_I2C_Addr_13 58
+$BLC_Brightness_Cmd_13 AA
+
+PAGE Panel #14 
+STRING $Panel_Name_14 LFP_PanelName
+$Panel_Width_14 00 05
+$Panel_Height_14 20 03
+$Int_LVDS_Panel_14_Channel_Type 00
+$INT_Panel_Color_Depth14 00
+$Enable_SSC14 00
+$SSC_Freq14 00
+$Disable_SSC_DDT14 00
+$DPS_Panel_Type_14 00
+$Blt_Control_14 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_14 B8 0B
+$PowerUpDelay_14 2C 01
+$Power_Backlight_Off_Power_Down_Delay_14 D0 07
+$PowerDownDelay_14 2C 01
+$PowerCycleDelay_14 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_14 EA 1A 00 A0 50 20 17 30 0C 30 43 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_14 36 7F 03 90 0E 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_14 02
+$BLC_Inv_Polarity_14 01
+$BLC_Min_Brightness_14 00
+$PWM_Frequency_14 DC 00
+$BLC_GPIO_Pins_14 01
+$BLC_GMBus_Speed_14 01
+$BLC_I2C_Addr_14 58
+$BLC_Brightness_Cmd_14 AA
+
+PAGE Panel #15 
+STRING $Panel_Name_15 LFP_PanelName
+$Panel_Width_15 80 07
+$Panel_Height_15 38 04
+$Int_LVDS_Panel_15_Channel_Type 00
+$INT_Panel_Color_Depth15 00
+$Enable_SSC15 00
+$SSC_Freq15 00
+$Disable_SSC_DDT15 00
+$DPS_Panel_Type_15 00
+$Blt_Control_15 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_15 B8 0B
+$PowerUpDelay_15 2C 01
+$Power_Backlight_Off_Power_Down_Delay_15 D0 07
+$PowerDownDelay_15 2C 01
+$PowerCycleDelay_15 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_15 02 3A 80 18 71 38 2D 40 58 2D 36 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_15 36 7F 03 00 0F 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_15 02
+$BLC_Inv_Polarity_15 01
+$BLC_Min_Brightness_15 00
+$PWM_Frequency_15 DC 00
+$BLC_GPIO_Pins_15 01
+$BLC_GMBus_Speed_15 01
+$BLC_I2C_Addr_15 58
+$BLC_Brightness_Cmd_15 AA
+
+PAGE Panel #16 
+STRING $Panel_Name_16 LFP_PanelName
+$Panel_Width_16 00 08
+$Panel_Height_16 00 06
+$Int_LVDS_Panel_16_Channel_Type 00
+$INT_Panel_Color_Depth16 00
+$Enable_SSC16 00
+$SSC_Freq16 00
+$Disable_SSC_DDT16 00
+$DPS_Panel_Type_16 00
+$Blt_Control_16 00
+
+PAGE Panel Power Sequencing
+$Power_On_Backlight_Enable_Delay_16 B8 0B
+$PowerUpDelay_16 2C 01
+$Power_Backlight_Off_Power_Down_Delay_16 D0 07
+$PowerDownDelay_16 2C 01
+$PowerCycleDelay_16 06
+
+PAGE DTD Timings
+TABLE $DVO_Tbl_16 29 40 00 60 80 00 13 60 10 10 11 00 00 00 00 00 00 1E
+
+PAGE LFP PnP ID
+TABLE $LVDS_PnP_ID_16 36 7F 03 00 10 00 00 00 00 0C
+
+PAGE Backlight Control Parameters
+$BLC_Inv_Type_16 02
+$BLC_Inv_Polarity_16 01
+$BLC_Min_Brightness_16 00
+$PWM_Frequency_16 DC 00
+$BLC_GPIO_Pins_16 01
+$BLC_GMBus_Speed_16 01
+$BLC_I2C_Addr_16 58
+$BLC_Brightness_Cmd_16 AA
+
+PAGE Test Page 1 (General)
+$SV_Wait_Timeout_Hang 00
+$RelStage 01
+
+PAGE Test Page 2 (Register Tables)
+
+PAGE MMIO Boot Registers
+TABLE $MMIO_Boot_Table 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+
+PAGE I/O SW Flag Registers
+TABLE $SWF_IO_Table 18 00
+
+PAGE MMIO SW Flag Registers
+TABLE $SWF_MMIO_Table 40 F0 04 00 01 00 00 01 44 F0 04 00 00 00 00 00 48 F0 04 00 00 00 00 00 4C F0 04 00 00 00 03 03 50 F0 04 00 00 00 00 00 54 F0 04 00 01 00 00 00 58 F0 04 00 00 00 00 00

@@ -1,0 +1,300 @@
+UEFITool basics: https://habrahabr.ru/post/211574/
+
+------------------------------------------------------------------------------------------
+Unlock write to MSR_PMG_CST_CONFIG_CONTROL 0xE2 - https://habrahabr.ru/post/211879/
+------------------------------------------------------------------------------------------
+PowerManagement2.efi - F7731B4C-58A2-4DF4-8980-5645D39ECE58
+
+0000000000003308 B9E2000000                      mov        ecx, 0xe2                     ; XREF=0x32fd
+000000000000330d E8BE0A0000                      call       0x3dd0
+0000000000003312 4889442430                      mov        qword [ss:rsp+0x30], rax
+0000000000003317 0FBAF00F                        btr        eax, 0xf
+000000000000331b 80FB01                          cmp        bl, 0x1
+000000000000331e 89442430                        mov        dword [ss:rsp+0x30], eax
+0000000000003322 7508                            jne        0x332c 						  ; we want the blow action skipped
+0000000000003324 0FBAE80F                        bts        eax, 0xf 					  ; set bit 15 (LOCK), which locks 0xE2 for write
+0000000000003328 89442430                        mov        dword [ss:rsp+0x30], eax 	  ; store result in eax
+
+000000000000332c 488B542430                      mov        rdx, qword [ss:rsp+0x30]      ; XREF=0x3322 - load result into rdx
+0000000000003331 B9E2000000                      mov        ecx, 0xe2 					  ; load register address into MSR 0xE2
+0000000000003336 E8850A0000                      call       0x3dc0
+000000000000333b 33C0                            xor        eax, eax
+000000000000333d 4883C420                        add        rsp, 0x20
+0000000000003341 5B                              pop        rbx
+...
+
+Conditional jne to unconditional jmp:
+75 08 0F BA E8 0F 89 44 24 30 -> EB 08 0F BA E8 0F 89 44 24 30
+
+------------------------------------------------------------------------------------------
+Enable Hardware AES-NI (for TrueCrypt etc.) - https://habrahabr.ru/post/185754/
+------------------------------------------------------------------------------------------
+PowerManagement2.efi - F7731B4C-58A2-4DF4-8980-5645D39ECE58
+
+0000000000003473 B93C010000                      mov        ecx, 0x13c
+0000000000003478 E84B1C0000                      call       0x50c8
+000000000000347d A801                            test       al, 0x1
+000000000000347f 752E                            jne        0x34af
+0000000000003481 0FB715C4150000                  movzx      edx, word [ds:0x4a4c]
+0000000000003488 660FBAE209                      bt         dx, 0x9
+000000000000348d 720B                            jc         0x349a
+000000000000348f F6C204                          test       dl, 0x4
+0000000000003492 7506                            jne        0x349a
+0000000000003494 4883C803                        or         rax, 0x3 					  ; the lock is set by bit 1 here
+0000000000003498 EB08                            jmp        0x34a2
+
+000000000000349a 4883E0FD                        and        rax, 0xfffffffffffffffd       ; XREF=0x348d, 0x3492
+000000000000349e 4883C801                        or         rax, 0x1
+
+00000000000034a2 488BD0                          mov        rdx, rax                      ; XREF=0x3498
+00000000000034a5 B93C010000                      mov        ecx, 0x13c
+00000000000034aa E8231C0000                      call       0x50d2
+
+00000000000034af 33C0                            xor        eax, eax                      ; XREF=0x3471, 0x347f
+00000000000034b1 4883C438                        add        rsp, 0x38
+00000000000034b5 C3                              ret        
+...
+
+AES-NI is LOCKED by bit 1 in the MSR 0x13C (set: AES-NI off, cleared: AES-NI on), so clear the bit:
+48 83 C8 03 -> 48 83 C8 01
+
+------------------------------------------------------------------------------------------
+RAM Speed Unlock  - https://habrahabr.ru/post/303602/
+------------------------------------------------------------------------------------------
+SandyBridgePhx.efi - 54519AE4-C284-42A8-901C-AF2132999E32
+
+For whichever frequency we have on the DIMMs set the regs, then jump to 0x183a
+
+17a2:	8b 85 c8 fc ff ff    	mov    -0x338(%ebp),%eax
+17a8:	8b 48 09             	mov    0x9(%eax),%ecx
+17ab:	66 c7 41 01 00 00    	movw   $0x0,0x1(%ecx)
+17b1:	8a 95 8c fd ff ff    	mov    -0x274(%ebp),%dl
+17b7:	88 95 c2 fc ff ff    	mov    %dl,-0x33e(%ebp)
+17bd:	eb 7b                	jmp    0x183a
+17bf:	8b 85 c8 fc ff ff    	mov    -0x338(%ebp),%eax
+17c5:	8b 48 09             	mov    0x9(%eax),%ecx
+17c8:	66 c7 41 01 2b 04    	movw   $0x42b,0x1(%ecx)
+17ce:	c6 85 c2 fc ff ff 0f 	movb   $0xf,-0x33e(%ebp)
+17d5:	eb 63                	jmp    0x183a
+17d7:	8b 95 c8 fc ff ff    	mov    -0x338(%ebp),%edx
+17dd:	8b 42 09             	mov    0x9(%edx),%eax
+17e0:	66 c7 40 01 35 05    	movw   $0x535,0x1(%eax)
+17e6:	c6 85 c2 fc ff ff 0c 	movb   $0xc,-0x33e(%ebp)
+17ed:	eb 4b                	jmp    0x183a
+17ef:	8b 8d c8 fc ff ff    	mov    -0x338(%ebp),%ecx
+17f5:	8b 51 09             	mov    0x9(%ecx),%edx
+17f8:	66 c7 42 01 40 06    	movw   $0x640,0x1(%edx)
+17fe:	c6 85 c2 fc ff ff 0a 	movb   $0xa,-0x33e(%ebp)
+1805:	eb 33                	jmp    0x183a
+1807:	8b 85 c8 fc ff ff    	mov    -0x338(%ebp),%eax
+180d:	8b 48 09             	mov    0x9(%eax),%ecx
+1810:	66 c7 41 01 4b 07    	movw   $0x74b,0x1(%ecx)
+1816:	c6 85 c2 fc ff ff 09 	movb   $0x9,-0x33e(%ebp)
+181d:	eb 1b                	jmp    0x183a
+
+and here we just dumbly set the frequency to 0x535 = 1333 MHz at all times .. so just don't do it and use what we've set above. 
+N.B. This pattern will appear twice in the module, patch the latter occurrence!
+
+183a:	8b 95 c8 fc ff ff    	mov    -0x338(%ebp),%edx	-> 90 90 90 90 90 90 	nop
+1840:	8b 42 09             	mov    0x9(%edx),%eax		-> 90 90 90 		 	nop
+1843:	66 c7 40 01 35 05    	movw   $0x535,0x1(%eax)		-> 90 90 90 90 90 90 	nop
+1849:	c6 85 c2 fc ff ff 0c 	movb   $0xc,-0x33e(%ebp)	-> 90 90 90 90 90 90 90 nop
+1850:	8b 8d c8 fc ff ff    	mov    -0x338(%ebp),%ecx
+1856:	8b 51 09             	mov    0x9(%ecx),%edx
+1859:	83 7a 04 03          	cmpl   $0x3,0x4(%edx)
+185d:	0f 85 ce 00 00 00    	jne    0x1931
+
+------------------------------------------------------------------------------------------
+Whitelist 1802 - https://habrahabr.ru/post/219893/
+------------------------------------------------------------------------------------------
+LenovoWmaPolicyDxe.efi - 79E0EDD7-9D1D-4F41-AE1A-F896169E5216
+
+0x270 is the address of the actual WL (for 1.39), where every device entry is represented by 4 words.
+First word is device type: 00 - WLAN, 01 - UMTS Modem, 05 - WiMax?, 06 - End of List indicator. 
+Second word is system-id, third word is subsystem-id, the last word is WLAN dualband capability, i.e. 01 - capable, 00 - not.
+
+00000000 86808900 86801113 01000000  // Intel Corporation Centrino Advanced-N + WiMAX 6250 [8086:0089]
+00000000 86808900 86801613 01000000  // Intel Corporation Centrino Advanced-N + WiMAX 6250 [8086:0089]
+05000000 86808701 00000000 00000000  // 		WiMAX component of above two
+00000000 86803842 86801111 01000000  // Intel Corporation Centrino Ultimate-N 6300 [8086:4238]
+00000000 86808500 86801113 01000000  // Intel Corporation Centrino Advanced-N 6205 [8086:0085]
+00000000 EC107681 EC109581 00000000  // Realtek Semiconductor Co., Ltd. RTL8188CE 802.11b/g/n WiFi Adapter [10ec:8176]
+00000000 86808400 86801513 00000000  // Intel Corporation Centrino Wireless-N 1000 [8086:0084]
+01000000 D1120C14 00000000 00000000 
+01000000 DB0B1219 00000000 00000000 
+01000000 DB0B1119 00000000 00000000 
+01000000 DB0B0E10 00000000 00000000 
+01000000 99111290 00000000 00000000 
+01000000 99111390 00000000 00000000 
+01000000 B71A4057 00000000 00000000 
+01000000 B71A0021 00000000 00000000 
+01000000 C30B0100 00000000 00000000 
+06000000 00000000 00000000 00000000  // EOL
+
+; START WL CHEKS
+0000000000000ae0 48895C2408                      mov        qword [ss:rsp+0x8], rbx       ; XREF=0xd4e, 0xe2e, 0xe5b
+0000000000000ae5 48896C2418                      mov        qword [ss:rsp+0x18], rbp
+0000000000000aea 56                              push       rsi
+0000000000000aeb 57                              push       rdi
+0000000000000aec 4154                            push       r12
+0000000000000aee 4883EC60                        sub        rsp, 0x60
+0000000000000af2 4533C9                          xor        r9d, r9d
+0000000000000af5 4032ED                          xor        bpl, bpl
+0000000000000af8 85D2                            test       edx, edx
+0000000000000afa 4D8BE0                          mov        r12, r8 		              ; store hardware system-id in r12
+0000000000000afd 0F84A0000000                    je         0xba3						  ; init a WLAN card
+0000000000000b03 83EA01                          sub        edx, 0x1 
+0000000000000b06 7409                            je         0xb11						  ; init a UMTS Modem
+0000000000000b08 83FA04                          cmp        edx, 0x4		
+0000000000000b0b 7404                            je         0xb11						  ; init a Hybrid card
+0000000000000b0d 33C0                            xor        eax, eax
+0000000000000b0f EB7D                            jmp        0xb8e
+
+; START Modem Routine - ensure WL is not empty
+0000000000000b11 8B0559F7FFFF                    mov        eax, dword [ds:0x270]         ; XREF=0xb06, 0xb0b - put WL address into eax
+0000000000000b17 664533C0                        xor        r8w, r8w
+0000000000000b1b 83F806                          cmp        eax, 0x6 					  ; ensure first word is not 0x6 - not at the end of the list
+0000000000000b1e 7441                            je         0xb61
+; we are never at the end of WL as it's not empty
+0000000000000b20 33D2                            xor        edx, edx
+0000000000000b22 488D1D47F7FFFF                  lea        rbx, qword [ds:0x270] 		  ; store WL start address in rbx for iterator purpose
+0000000000000b29 83F801                          cmp        eax, 0x1                      ; XREF=0xb5f - see if we dealing with a Modem or a WiMax card?
+0000000000000b2c 7405                            je         0xb33
+0000000000000b2e 83F805                          cmp        eax, 0x5
+0000000000000b31 7519                            jne        0xb4c						  ; go to iterate through the WL otherwise
+; Modem - store system-id
+0000000000000b33 0FB74C1A06                      movzx      ecx, word [ds:rdx+rbx+0x6]    ; XREF=0xb2c - store system-id in ecx
+0000000000000b38 0FB7441A04                      movzx      eax, word [ds:rdx+rbx+0x4]
+0000000000000b3d C1E110                          shl        ecx, 0x10
+0000000000000b40 0BC8                            or         ecx, eax
+0000000000000b42 41390C24                        cmp        dword [ds:r12], ecx 		  ; compare hardware id from r12 with the one stored in ecx
+0000000000000b46 0F8477010000                    je         0xcc3						  -> 90 nop + E9 77 01 00 00 jmp 0xcc3 (pretend we have system-id match)
+; iterate the WL for next device while not at the end of WL
+0000000000000b4c 664183C001                      add        r8w, 0x1                      ; XREF=0xb31
+0000000000000b51 410FB7D0                        movzx      edx, r8w
+0000000000000b55 48C1E204                        shl        rdx, 0x4                      ; by this we increment rdx by 0x10
+0000000000000b59 8B041A                          mov        eax, dword [ds:rdx+rbx] 	  ; eax now has the next device entry from WL
+0000000000000b5c 83F806                          cmp        eax, 0x6 					  ; check if we hit the end of the list without having found a match and throw 1802 
+0000000000000b5f 75C8                            jne        0xb29					      ; start the Modem routine over if we have not
+
+; throw error 1802 - no compatible card found
+0000000000000b61 498BCC                          mov        rcx, r12                      ; XREF=0xb1e, 0xbad, 0xcbd
+0000000000000b64 E863FEFFFF                      call       0x9cc 						  ; this will throw 1802 error at the user when no valid card is installed
+0000000000000b69 4885C0                          test       rax, rax
+0000000000000b6c 7916                            jns        0xb84
+0000000000000b6e C784249800000001000000          mov        dword [ss:rsp+0x98], 0x1
+0000000000000b79 8B842498000000                  mov        eax, dword [ss:rsp+0x98]      ; XREF=0xb82
+0000000000000b80 85C0                            test       eax, eax
+0000000000000b82 75F5                            jne        0xb79
+0000000000000b84 48B80700000000000080            mov        rax, 0x8000000000000007       ; XREF=0xb6c
+
+0000000000000b8e 4C8D5C2460                      lea        r11, qword [ss:rsp+0x60]      ; XREF=0xb0f, 0xcd7, 0xce7
+0000000000000b93 498B5B20                        mov        rbx, qword [ds:r11+0x20]
+0000000000000b97 498B6B30                        mov        rbp, qword [ds:r11+0x30]
+0000000000000b9b 498BE3                          mov        rsp, r11
+0000000000000b9e 415C                            pop        r12
+0000000000000ba0 5F                              pop        rdi
+0000000000000ba1 5E                              pop        rsi
+0000000000000ba2 C3                              ret  
+
+; START WLAN Routine - ensure WL is not empty    
+0000000000000ba3 6633F6                          xor        si, si                        ; XREF=0xafd
+0000000000000ba6 833DC3F6FFFF06                  cmp        dword [ds:0x270], 0x6  		  ; ensure first record in WL is not 0x6 - not the end of the list
+0000000000000bad 74B2                            je         0xb61
+; it never really is
+0000000000000baf 488D1DBAF6FFFF                  lea        rbx, qword [ds:0x270] 		  ; store WL start address in rbx for iterator purpose
+0000000000000bb6 33D2                            xor        edx, edx
+0000000000000bb8 488BC3                          mov        rax, rbx 					  ; move rbx to rax
+; ensure the record from WL is a WLAN card (0x0)
+0000000000000bbb 833800                          cmp        dword [ds:rax], 0x0           ; XREF=0xc7e -  check rax to see if we dealing with a WLAN card?
+0000000000000bbe 0F85A6000000                    jne        0xc6a 						  ; go to iterate through the WL otherwise
+; WLAN - store system-id
+0000000000000bc4 0FB74C1A06                      movzx      ecx, word [ds:rdx+rbx+0x6]    ; store system-id from WL in ecx, rdx is 0 initially and is icremented by 0x4 every time we iterate through WL
+0000000000000bc9 0FB7441A04                      movzx      eax, word [ds:rdx+rbx+0x4]
+0000000000000bce C1E110                          shl        ecx, 0x10
+0000000000000bd1 0BC8                            or         ecx, eax
+0000000000000bd3 41390C24                        cmp        dword [ds:r12], ecx           ; compare hardware id from r12 with the one stored in ecx
+0000000000000bd7 0F858D000000                    jne        0xc6a						  -> 90 90 90 90 90 90 nop (pretend system-id matched)
+; store subsystem-id
+0000000000000bdd 0FB74C1A0A                      movzx      ecx, word [ds:rdx+rbx+0xa]    ; store subsystem-id in ecx
+0000000000000be2 0FB7441A08                      movzx      eax, word [ds:rdx+rbx+0x8]
+0000000000000be7 C1E110                          shl        ecx, 0x10
+0000000000000bea 0BC8                            or         ecx, eax
+0000000000000bec 41394C2404                      cmp        dword [ds:r12+0x4], ecx       ; compare hardware id from r12+0x4 with the one stored in ecx
+0000000000000bf1 7577                            jne        0xc6a						  -> 90 90 nop (pretend subsystem-id matched)
+; check 5 GHz capability
+0000000000000bf3 837C1A0C01                      cmp        dword [ds:rdx+rbx+0xc], 0x1
+0000000000000bf8 40B501                          mov        ch, 0x1
+0000000000000bfb 7528                            jne        0xc25
+0000000000000bfd 488B058C120000                  mov        rax, qword [ds:0x1e90]
+0000000000000c04 B21F                            mov        dl, 0x1f
+0000000000000c06 488BC8                          mov        rcx, rax
+0000000000000c09 FF10                            call       qword [ds:rax]
+0000000000000c0b B21F                            mov        dl, 0x1f
+0000000000000c0d 400AC5                          or         al, bpl
+0000000000000c10 448AC0                          mov        r8L, al
+0000000000000c13 488B0576120000                  mov        rax, qword [ds:0x1e90]
+0000000000000c1a 488BC8                          mov        rcx, rax
+0000000000000c1d FF5008                          call       qword [ds:rax+0x8]
+0000000000000c20 408AFD                          mov        dil, bpl
+0000000000000c23 EB03                            jmp        0xc28
+0000000000000c25 4032FF                          xor        dil, dil                      ; XREF=0xbfb
+0000000000000c28 488D442438                      lea        rax, qword [ss:rsp+0x38]      ; XREF=0xc23
+0000000000000c2d 4C8D4C2430                      lea        r9, qword [ss:rsp+0x30]
+0000000000000c32 4C8D842488000000                lea        r8, qword [ss:rsp+0x88]
+0000000000000c3a 4889442420                      mov        qword [ss:rsp+0x20], rax
+0000000000000c3f 488B051A120000                  mov        rax, qword [ds:0x1e60]
+; 
+0000000000000c46 488D1523F8FFFF                  lea        rdx, qword [ds:0x470]
+0000000000000c4d 488D0D7CF9FFFF                  lea        rcx, qword [ds:0x5d0]
+0000000000000c54 48C744243024000000              mov        qword [ss:rsp+0x30], 0x24
+0000000000000c5d FF5048                          call       qword [ds:rax+0x48]
+0000000000000c60 40387C2445                      cmp        byte [ss:rsp+0x45], dil
+0000000000000c65 4C8BC8                          mov        r9, rax
+0000000000000c68 7519                            jne        0xc83						  -> EB 19 jmp 0xc83 (pretend this is true and allow the WLAN card to init)
+; iterate through WL if subsystem-id hasn't matched
+0000000000000c6a 6683C601                        add        si, 0x1                       ; XREF=0xbbe, 0xbd7, 0xbf1
+0000000000000c6e 0FB7D6                          movzx      edx, si 					  
+0000000000000c71 48C1E204                        shl        rdx, 0x4 					  ; by this we increment rdx by 0x10
+0000000000000c75 488D041A                        lea        rax, qword [ds:rdx+rbx] 	  ; so rax now has next device identifier from WL
+0000000000000c79 833806                          cmp        dword [ds:rax], 0x6           ; have we hit the end of WL (0x6)?
+0000000000000c7c 743C                            je         0xcba						  ; jump to an error at 0xb61 if so
+0000000000000c7e E938FFFFFF                      jmp        0xbbb						  ; iterate to next WLAN device otherwise
+; prepare to init WLAN
+0000000000000c83 4C8B4C2430                      mov        r9, qword [ss:rsp+0x30]       ; XREF=0xc68
+0000000000000c88 448B842488000000                mov        r8d, dword [ss:rsp+0x88]
+0000000000000c90 488D442438                      lea        rax, qword [ss:rsp+0x38]
+0000000000000c95 4889442420                      mov        qword [ss:rsp+0x20], rax
+0000000000000c9a 488B05BF110000                  mov        rax, qword [ds:0x1e60]
+0000000000000ca1 488D15C8F7FFFF                  lea        rdx, qword [ds:0x470]
+0000000000000ca8 488D0D21F9FFFF                  lea        rcx, qword [ds:0x5d0]
+0000000000000caf 40887C2445                      mov        byte [ss:rsp+0x45], dil
+0000000000000cb4 FF5058                          call       qword [ds:rax+0x58]
+0000000000000cb7 4C8BC8                          mov        r9, rax
+; check we can init, throw 1802 otherwise
+0000000000000cba 4084ED                          test       bpl, bpl                      ; XREF=0xc7c
+0000000000000cbd 0F849EFEFFFF                    je         0xb61						  -> 90 90 90 90 90 90 nop (regadless of the outcome, we don't want to be thrown 1802)
+; init the Modem/WLAN
+0000000000000cc3 803D7E11000000                  cmp        byte [ds:0x1e48], 0x0         ; XREF=0xb46
+0000000000000cca 7518                            jne        0xce4
+0000000000000ccc E85FFCFFFF                      call       0x930
+0000000000000cd1 4885C0                          test       rax, rax
+0000000000000cd4 4C8BC8                          mov        r9, rax
+0000000000000cd7 0F88B1FEFFFF                    js         0xb8e
+
+------------------------------------------------------------------------------------------
+Advanced Tab Swap
+------------------------------------------------------------------------------------------
+SystemFormBrowser2Dxe.efi - BF646364-2ECE-4D9F-84C7-C33F28689363
+
+002A0: 04 32 0B 48 3C C2 E1 4A BB 16 A7 3F AD DA 47 5F (time/date tab)
+002A0: 77 8B 1D 82 6D 24 96 4E 8E 10 34 67 D5 6A B1 BA (advanced tab)
+
+SystemSetup2Dxe.efi - 721C8B66-426C-4E86-8E99-3457C46AB0B9
+
+00240: 04 32 0B 48 3C C2 E1 4A BB 16 A7 3F AD DA 47 5F (time/date tab)
+00240: 77 8B 1D 82 6D 24 96 4E 8E 10 34 67 D5 6A B1 BA (advanced tab)
+
+LenovoSetupDateTimeDxe.efi - 8218965D-20C0-4DD6-81A0-845C52270743
+the PEI module above to be replaced with
+PlatformSetupAdvancedDxe.efi - CFEF94C4-4167-466A-8893-8779459DFA86
